@@ -27,3 +27,12 @@
 *.exe
 *.out
 *.app
+/BSCP/BSCP/Debug
+/BSCP/BSCP/x64/Debug
+/BSCP/x64/Debug
+/BSCP/RegProvider/x64/Debug
+/BSCP/ipch
+/BSCP/Debug
+/BSCP/RegProvider/Debug
+/BSCP/Configurator/bin/Debug
+/BSCP/Configurator/obj/Debug

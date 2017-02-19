@@ -1,0 +1,31 @@
+﻿<Window x:Class="Configurator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Configurator"
+        xmlns:configurator="clr-namespace:Configurator"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <StackPanel>
+        <Label Content="BootShellCredentialProvider Configurator" FontSize="20" />
+        <StackPanel>
+            <ListView Name="lstView">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox Text="{Binding Name}" Width="200" />
+                            <TextBox Text="{Binding Command}" />
+                            <Button Content="Reset to Default" Tag="{Binding Name}" Click="Reset_button_Click" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Button Content="Save &amp; Enable" Width="200" Click="Save_button_click"></Button>
+            <Button Content="Disable" Width="200" Click="Disable_button_Click"></Button>
+        </StackPanel>
+    </StackPanel>
+    
+</Window>
