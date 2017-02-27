@@ -13,5 +13,5 @@ Note: This project requires extensive modification to the registry to work and e
 
 Demo Pics:
 
-[](../login.PNG)
-[](../desktop.png)
+![](/login.PNG)
+![](/desktop.PNG)
