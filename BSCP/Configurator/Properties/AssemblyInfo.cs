@@ -7,11 +7,11 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Configurator")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("BootShellCredentialProvider Configurator")]
+[assembly: AssemblyDescription("Configuration app for the BootShellCredentialProvider")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Configurator")]
+[assembly: AssemblyCompany("Nathan C. Castle")]
+[assembly: AssemblyProduct("BootShellCredentialProvider")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

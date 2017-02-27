@@ -6,25 +6,50 @@
         xmlns:local="clr-namespace:Configurator"
         xmlns:configurator="clr-namespace:Configurator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="BSCP Configurator" Height="400" Width="600"
+        >
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="White"></Setter>
+            <Setter Property="Foreground" Value="Black"></Setter>
+            <Setter Property="BorderThickness" Value="2"></Setter>
+            <Setter Property="BorderBrush" Value="LightGray"></Setter>
+            <Setter Property="FontFamily" Value="Segoe UI"></Setter>
+            <Setter Property="Margin" Value="10,10,10,10"></Setter>
+            <Setter Property="Padding" Value="10,5,10,5"></Setter>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="White"></Setter>
+            <Setter Property="Foreground" Value="Black"></Setter>
+            <Setter Property="FontFamily" Value="Segoe UI"></Setter>
+            <Setter Property="Margin" Value="10,10,0,10"></Setter>
+            <Setter Property="Padding" Value="5,5,5,5"></Setter>
+            <Setter Property="BorderThickness" Value="2"></Setter>
+            <Setter Property="BorderBrush" Value="LightGray"></Setter>
+            <Setter Property="MinWidth" Value="50"></Setter>
+        </Style>
+    </Window.Resources>
     <StackPanel>
-        <Label Content="BootShellCredentialProvider Configurator" FontSize="20" />
+        <Label Content="BSCP Configurator" FontSize="20" Margin="10,12,0,0" />
         <StackPanel>
-            <ListView Name="lstView">
+            <ListView Name="lstView" BorderThickness="0" SelectionMode="Single">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBox Text="{Binding Name}" Width="200" />
-                            <TextBox Text="{Binding Command}" />
+                            <TextBox Text="{Binding Name}" Width="150" />
+                            <TextBox Text="{Binding Console}" Width="75" />
+                            <TextBox Text="{Binding Command}" Width="150" />
                             <Button Content="Reset to Default" Tag="{Binding Name}" Click="Reset_button_Click" />
+                            <Button Content="Delete Forever" Tag="{Binding Name}" Click="Delete_button_Click" />
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
-            <Button Content="Save &amp; Enable" Width="200" Click="Save_button_click"></Button>
-            <Button Content="Disable" Width="200" Click="Disable_button_Click"></Button>
+            <Button Content="Save &amp; Enable" Click="Save_button_click"></Button>
+            <Button Content="Disable" Click="Disable_button_Click"></Button>
+            <Button Content="New Configuration" Click="New_Button_Click"></Button>
         </StackPanel>
     </StackPanel>
     

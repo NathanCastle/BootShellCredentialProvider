@@ -22,7 +22,8 @@ namespace Configurator
 
         private String _name;
         private String _command;
-        private Boolean _isEnabled;
+        private String _console;
+        private Boolean _usesXming;
         public String Name
         {
             get
@@ -53,32 +54,34 @@ namespace Configurator
                 }
             }
         }
-        public String DefaultCommand { get; set; }
-        public Boolean IsEnabled
+        public String Console
         {
             get
             {
-                return _isEnabled;
+                return _console;
             }
             set
             {
-                if (value != _isEnabled)
+                if (value != _console)
                 {
-                    _isEnabled = value;
-                    OnPropertyChanged("IsEnabled");
+                    _console = value;
+                    OnPropertyChanged("Console");
                 }
             }
         }
+        public String DefaultCommand { get; set; }
+        public String DefaultConsole { get; set; }
 
         public ConfigModel()
         {
-            this.IsEnabled = true;
         }
 
-        public ConfigModel(String name, String defaultCommand)
+        public ConfigModel(String name, String defaultCommand, String defaultConsole, Boolean uses_xming = true)
         {
             this.Name = name;
             this.DefaultCommand = defaultCommand;
+            this.DefaultConsole = defaultConsole;
+            this._usesXming = uses_xming;
         }
 
         /// <summary>
@@ -86,15 +89,24 @@ namespace Configurator
         /// </summary>
         public void readOrUpdateFromRegistry()
         {
-            var key = Registry.GetValue(app_key_base + "\\" + Name, "command", null);
-            if (key == null)
+            var command_key = Registry.GetValue(app_key_base + "\\" + Name, "command", null);
+            var console_key = Registry.GetValue(app_key_base + "\\" + Name, "console", null);
+            if (command_key == null)
             {
                 //insert key & set value
                 Registry.SetValue(get_full_name(), "command", this.DefaultCommand);
 
             } else
             {
-                this.Command = key.ToString();
+                this.Command = command_key.ToString();
+            }
+
+            if (console_key == null)
+            {
+                Registry.SetValue(get_full_name(), "console", this.DefaultConsole);
+            } else
+            {
+                this.Console = console_key.ToString();
             }
         }
 
@@ -102,13 +114,22 @@ namespace Configurator
         {
             Registry.SetValue(get_full_name(), "command", this.Command);
             Registry.SetValue(get_full_name(), "name", this.Name);
+            Registry.SetValue(get_full_name(), "console", this.Console);
+            Registry.SetValue(get_full_name(), "xming", this._usesXming.ToString());
         }
 
         public void delete()
         {
-            var hklm = Microsoft.Win32.Registry.LocalMachine;
-            var subkey = hklm.OpenSubKey(app_key_base_light, true);
-            subkey.DeleteSubKey(this.Name);
+            try
+            {
+                var hklm = Microsoft.Win32.Registry.LocalMachine;
+                var subkey = hklm.OpenSubKey(app_key_base_light, true);
+                subkey.DeleteSubKey(this.Name);
+            } catch (ArgumentException)
+            {
+                return; //key not present
+            }
+            
         }
 
         private string get_full_name()

@@ -10,15 +10,22 @@
 #define REGPROVIDER_API __declspec(dllimport)
 #endif
 
+#include <list>
+
 // This class is exported from the RegProvider.dll
 class REGPROVIDER_API CRegProvider {
 public:
 	CRegProvider(void);
 	~CRegProvider(void);
-	LONG EnsureKeyPresent(WCHAR* key_name);
-	LONG GetValueAt_sz(WCHAR* key_name, WCHAR* prop_name, WCHAR* result, DWORD* length);
-	LONG GetSizeAt_sz(WCHAR* key_name, WCHAR* prop_name, DWORD* result);
-	LONG EnsureKeyValueSet_sz(WCHAR* key_name, WCHAR* prop_name, WCHAR* value, DWORD* length);
+	LONG GetValueAt_sz(__in WCHAR* key_name, __in WCHAR* prop_name, __out WCHAR* result, __out DWORD* length);
+	LONG GetSizeAt_sz(__in WCHAR* key_name, __in WCHAR* prop_name, __out DWORD* result);
+	LONG EnsureKeyValueSet_sz(__in WCHAR* key_name, __in WCHAR* prop_name, __in WCHAR* value, __in DWORD* cblength);
+	LONG CountSubkeys(__in WCHAR* key_name, __out DWORD* count, __out DWORD* max_length);
+	LONG GetSubKey(__in WCHAR* key_name, __in DWORD index, __out WCHAR* result, __out DWORD* length);
+	WCHAR* pwszGetSubKey(__in WCHAR* key_name, __in DWORD index, __out DWORD* cblength, __out DWORD* cclength);
+	WCHAR* pwszGetValueAt_sz(__in WCHAR* key_name, __in WCHAR* value_name, __out DWORD* cblength, __out DWORD* cclength);
+private:
+	std::list<WCHAR*> __alloced_strings; //allocated strings (for results), to facilitate deletion
 };
 
 extern REGPROVIDER_API int nRegProvider;
