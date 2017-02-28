@@ -1,0 +1,1 @@
+﻿DISPLAY=:0 exec mate-session
