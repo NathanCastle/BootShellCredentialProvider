@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
+using System.Security.AccessControl;
 
 namespace Configurator
 {
@@ -26,18 +27,38 @@ namespace Configurator
         ObservableCollection<ConfigModel> context;
         static string credential_provider_guid = "ad471e7d-5bb2-4863-b317-faf3ad0f4d9d"; //identifies credential provider to system
         static string credential_key = "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Authentication\\Credential Providers\\";
+        static string credential_key_s = "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Authentication\\Credential Providers";
         static string cp_name = "BootShellCredentialProvider";
         static string class_root_key = "HKEY_CLASSES_ROOT\\CLSID\\{" + credential_provider_guid + "}";
-
-
+        static string userInitSetting = "C:\\Windows\\System32\\Userinit.exe,ConfigurableShell.exe";
+        static string userInitSetting_reset = "C:\\Windows\\System32\\Userinit.exe,";
+        static string winlogonKey = "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\WinLogon";
+        static string winlogonKey_full = "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\WinLogon";
+        public static string app_key_base_light = "SOFTWARE\\Castle\\BootShellCredentialProvider\\Shells";
         public MainWindow()
         {
             context = new ObservableCollection<ConfigModel>();
-            
-            context.Add(new ConfigModel("Unity", "-c \"cd ~/ && ./unity.sh\"", "bash.exe"));
-            context.Add(new ConfigModel("XFCE", "-c \"cd ~/ && ./xfce.sh\"", "bash.exe"));
-            context.Add(new ConfigModel("Cinnamon", "-c \"cd ~/ && ./cinnamon.sh\"", "bash.exe"));
-            context.Add(new ConfigModel("Windows Explorer", "/C \"explorer.exe\"", "cmd.exe", false));
+            var hkcl = Microsoft.Win32.Registry.LocalMachine;
+            try
+            {
+                //load settings if present
+                var subkey = hkcl.OpenSubKey(app_key_base_light, true);
+                var subkeys = subkey.GetSubKeyNames();
+                foreach (var k in subkeys)
+                {
+                   context.Add(new ConfigModel(k, "x", "y"));
+                }
+            } catch (ArgumentException)
+            {
+                //create defaults otherwise
+                context.Add(new ConfigModel("Unity", "-c \"cd ~/ && ./unity.sh\"", "bash.exe"));
+                context.Add(new ConfigModel("XFCE", "-c \"cd ~/ && ./xfce.sh\"", "bash.exe"));
+                context.Add(new ConfigModel("Cinnamon", "-c \"cd ~/ && ./cinnamon.sh\"", "bash.exe"));
+                context.Add(new ConfigModel("Mate", "-c \"cd ~/ && ./mate.sh\"", "bash.exe"));
+                context.Add(new ConfigModel("Windows Explorer", "/C \"explorer.exe\"", "cmd.exe", false));
+            }
+
+                
 
             InitializeComponent();
             lstView.ItemsSource = context;
@@ -59,6 +80,25 @@ namespace Configurator
             Registry.SetValue(class_root_key, "", cp_name);
             Registry.SetValue(class_root_key + "\\InprocServer32", "ThreadingModel", "Apartment");
             Registry.SetValue(class_root_key + "\\InprocServer32", "", cp_name + ".dll");
+            //Take ownership of WinLogon Key & update userinit
+            try
+            {
+                string user = Environment.UserDomainName + "\\" + Environment.UserName;
+                var hklm = Microsoft.Win32.Registry.LocalMachine;
+                var rs = new RegistrySecurity();
+                rs.AddAccessRule(new RegistryAccessRule(user,
+                    RegistryRights.FullControl,
+                    InheritanceFlags.None,
+                    PropagationFlags.None,
+                    AccessControlType.Allow));
+                
+                var subkey = hklm.OpenSubKey(winlogonKey, true);
+                subkey.SetAccessControl(rs);
+                //update UserInit setting
+                
+                Registry.SetValue(winlogonKey_full, "Userinit", userInitSetting);
+            }
+            catch (UnauthorizedAccessException) { return; };
         }
 
         private void Reset_button_Click(object sender, RoutedEventArgs e)
@@ -103,7 +143,7 @@ namespace Configurator
             var hklm = Microsoft.Win32.Registry.LocalMachine;
             try
             {
-                var subkey = hklm.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Authentication\\Credential Providers", true);
+                var subkey = hklm.OpenSubKey(credential_key_s, true);
                 subkey.DeleteSubKey("{" + credential_provider_guid + "}");
             }
             catch (ArgumentException) { }
@@ -114,6 +154,12 @@ namespace Configurator
                 subkey.DeleteSubKey("InprocServer32");
                 var parent_key = hkcl.OpenSubKey("CLSID", true);
                 parent_key.DeleteSubKey("{" + credential_provider_guid + "}");
+            } catch (ArgumentException) { }
+
+            //unregister configurableShell
+            try
+            {
+                Registry.SetValue(winlogonKey_full, "Userinit", userInitSetting_reset);
             } catch (ArgumentException) { }
         }
 
