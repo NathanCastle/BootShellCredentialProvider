@@ -1,18 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Microsoft.Win32;
 using System.Security.AccessControl;
 
@@ -51,10 +40,9 @@ namespace Configurator
             } catch (ArgumentException)
             {
                 //create defaults otherwise
-                context.Add(new ConfigModel("Unity", "-c \"cd ~/ && ./unity.sh\"", "bash.exe"));
-                context.Add(new ConfigModel("XFCE", "-c \"cd ~/ && ./xfce.sh\"", "bash.exe"));
-                context.Add(new ConfigModel("Cinnamon", "-c \"cd ~/ && ./cinnamon.sh\"", "bash.exe"));
-                context.Add(new ConfigModel("Mate", "-c \"cd ~/ && ./mate.sh\"", "bash.exe"));
+                context.Add(new ConfigModel("KDE", "-c \"cd ~/ && DISPLAY=:0 startkde \"", "bash.exe"));
+                context.Add(new ConfigModel("XFCE", "-c \"cd ~/ && DISPLAY=:0 startxfce4\"", "bash.exe"));
+                context.Add(new ConfigModel("Mate", "-c \"cd ~/ && DISPLAY=:0 exec mate-session\"", "bash.exe"));
                 context.Add(new ConfigModel("Windows Explorer", "/C \"explorer.exe\"", "cmd.exe", false));
             }
 

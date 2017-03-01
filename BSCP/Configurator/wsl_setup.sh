@@ -24,8 +24,9 @@ sudo apt-get install unity-settings-daemon #fix for mate-settings-daemon not wor
 #install XFCE4
 sudo apt-get install xubuntu-desktop
 
-
-
 #install KDE
 
-#install Gnome
+sudo apt-get install kubuntu-desktop
+
+#note: this breaks mate. Now must change mate settings
+sudo sed -i.orig  's/^Exec=caja -n/& --sync/' /usr/share/applications/caja.desktop 
