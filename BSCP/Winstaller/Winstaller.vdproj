@@ -79,6 +79,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -95,6 +103,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -131,11 +147,6 @@
             "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
                 "ScatterAssemblies"
                 {
-                    "_10B9BE0FE08563BA755B4F72693FDB2B"
-                    {
-                    "Name" = "8:System.Net.Http.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:System.Net.Http.dll"
             "TargetName" = "8:"
@@ -242,15 +253,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Boot Shell Credential Provider"
-        "ProductCode" = "8:{43EDCC51-D09D-4898-B253-08A392CDD874}"
-        "PackageCode" = "8:{A46EC1BB-D15C-49D0-983B-911F09DE03E9}"
+        "ProductCode" = "8:{FDE8ECF1-DCD4-47C0-A3BF-1973E1CD60A8}"
+        "PackageCode" = "8:{8965BC49-866E-4459-833F-BE36B8C4B4C4}"
         "UpgradeCode" = "8:{7E5C7EA6-6D18-4C1B-93BC-2EC6C5F5C1E7}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:0.1.0"
         "Manufacturer" = "8:Nathan C. Castle"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
