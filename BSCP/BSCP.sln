@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestApp", "BSCP\BSCP.vcxproj", "{6A8F1DEF-6A6E-45DD-8499-031C5789EED7}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RegProvider", "RegProvider\RegProvider.vcxproj", "{93A778E9-8F70-42C7-BF58-D08B5C6D348F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Configurator", "Configurator\Configurator.csproj", "{F3A59C01-A7A7-45E6-914A-8206C8DA02F9}"
@@ -27,18 +25,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6A8F1DEF-6A6E-45DD-8499-031C5789EED7}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{6A8F1DEF-6A6E-45DD-8499-031C5789EED7}.Debug|ARM.ActiveCfg = Debug|Win32
-		{6A8F1DEF-6A6E-45DD-8499-031C5789EED7}.Debug|x64.ActiveCfg = Debug|x64
-		{6A8F1DEF-6A6E-45DD-8499-031C5789EED7}.Debug|x64.Build.0 = Debug|x64
-		{6A8F1DEF-6A6E-45DD-8499-031C5789EED7}.Debug|x86.ActiveCfg = Debug|Win32
-		{6A8F1DEF-6A6E-45DD-8499-031C5789EED7}.Debug|x86.Build.0 = Debug|Win32
-		{6A8F1DEF-6A6E-45DD-8499-031C5789EED7}.Release|Any CPU.ActiveCfg = Release|Win32
-		{6A8F1DEF-6A6E-45DD-8499-031C5789EED7}.Release|ARM.ActiveCfg = Release|Win32
-		{6A8F1DEF-6A6E-45DD-8499-031C5789EED7}.Release|x64.ActiveCfg = Release|x64
-		{6A8F1DEF-6A6E-45DD-8499-031C5789EED7}.Release|x64.Build.0 = Release|x64
-		{6A8F1DEF-6A6E-45DD-8499-031C5789EED7}.Release|x86.ActiveCfg = Release|Win32
-		{6A8F1DEF-6A6E-45DD-8499-031C5789EED7}.Release|x86.Build.0 = Release|Win32
 		{93A778E9-8F70-42C7-BF58-D08B5C6D348F}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{93A778E9-8F70-42C7-BF58-D08B5C6D348F}.Debug|ARM.ActiveCfg = Debug|Win32
 		{93A778E9-8F70-42C7-BF58-D08B5C6D348F}.Debug|x64.ActiveCfg = Debug|x64

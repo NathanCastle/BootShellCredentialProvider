@@ -1,7 +1,5 @@
 MICROSOFT LIMITED PUBLIC LICENSE version 1.1
 
-This license governs use of code marked as “sample” or “example” available on this web site without a license agreement, as provided under the section above titled “NOTICE SPECIFIC TO SOFTWARE AVAILABLE ON THIS WEB SITE.” If you use such code (the “software”), you accept this license. If you do not accept the license, do not use the software.
-
 1. Definitions
 The terms “reproduce,” “reproduction,” “derivative works,” and “distribution” have the same meaning here as under U.S. copyright law. 
 A “contribution” is the original software, or any additions or changes to the software.
