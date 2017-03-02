@@ -37,7 +37,7 @@ namespace Configurator
                 {
                    context.Add(new ConfigModel(k, "x", "y"));
                 }
-            } catch (ArgumentException)
+            } catch (Exception)
             {
                 //create defaults otherwise
                 context.Add(new ConfigModel("KDE", "-c \"cd ~/ && DISPLAY=:0 startkde \"", "bash.exe"));
