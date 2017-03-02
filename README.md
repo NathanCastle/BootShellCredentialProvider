@@ -17,7 +17,7 @@ Prerequisites:
 
 Installing & Configuring:
 
-- Download and run the installer. Do not change any of the defaults; the defaults work. 
+- Download and run the installer from [here](https://github.com/NathanCastle/BootShellCredentialProvider/releases). Do not change any of the defaults; the defaults work. 
 - Run BSCP Configurator (a shortcut in your Start Menu)
 - Configure the settings as desired. Note that the defaults should work with the environment created by the setup scritpt mentioned above. 
 - In the unlikely event that BSCP Configurator crashes upon attempting to save, you have a permissions issue. Try running again as an administrator. If that doesn't work, you probably need to give yourself Full Control permissions on `HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\WinLogon`.
