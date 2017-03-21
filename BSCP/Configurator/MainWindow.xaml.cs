@@ -27,6 +27,8 @@ namespace Configurator
         public MainWindow()
         {
             context = new ObservableCollection<ConfigModel>();
+            InitializeComponent();
+            lstView.ItemsSource = context;
             var hkcl = Microsoft.Win32.Registry.LocalMachine;
             try
             {
@@ -45,11 +47,7 @@ namespace Configurator
                 context.Add(new ConfigModel("Mate", "-c \"cd ~/ && DISPLAY=:0 exec mate-session\"", "bash.exe"));
                 context.Add(new ConfigModel("Windows Explorer", "/C \"explorer.exe\"", "cmd.exe", false));
             }
-
-                
-
-            InitializeComponent();
-            lstView.ItemsSource = context;
+            
             foreach (var item in context)
             {
                 item.readOrUpdateFromRegistry();
@@ -127,14 +125,19 @@ namespace Configurator
             {
                 item.delete();
             }
-            //unregister credential provider
             var hklm = Microsoft.Win32.Registry.LocalMachine;
+            //delete shell key parent
+            hklm.OpenSubKey("SOFTWARE\\Castle\\BootShellCredentialProvider", true).DeleteSubKey("Shells");
+            hklm.OpenSubKey("SOFTWARE\\Castle", true).DeleteSubKey("BootShellCredentialProvider");
+            hklm.OpenSubKey("SOFTWARE", true).DeleteSubKey("Castle");
+            //unregister credential provider
             try
             {
                 var subkey = hklm.OpenSubKey(credential_key_s, true);
                 subkey.DeleteSubKey("{" + credential_provider_guid + "}");
             }
-            catch (ArgumentException) { }
+            catch (ArgumentException) { }//do nothing, already deleted
+            catch (NullReferenceException) { }//do nothing, already deleted
             var hkcl = Microsoft.Win32.Registry.ClassesRoot;
             try
             {
@@ -142,13 +145,17 @@ namespace Configurator
                 subkey.DeleteSubKey("InprocServer32");
                 var parent_key = hkcl.OpenSubKey("CLSID", true);
                 parent_key.DeleteSubKey("{" + credential_provider_guid + "}");
-            } catch (ArgumentException) { }
+            }
+            catch (ArgumentException) { }
+            catch (NullReferenceException) { }
 
             //unregister configurableShell
             try
             {
                 Registry.SetValue(winlogonKey_full, "Userinit", userInitSetting_reset);
-            } catch (ArgumentException) { }
+            }
+            catch (ArgumentException) { }
+            catch (NullReferenceException) { }
         }
 
         private void New_Button_Click(object sender, RoutedEventArgs e)

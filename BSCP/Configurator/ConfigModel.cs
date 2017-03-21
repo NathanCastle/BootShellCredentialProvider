@@ -89,25 +89,37 @@ namespace Configurator
         /// </summary>
         public void readOrUpdateFromRegistry()
         {
-            var command_key = Registry.GetValue(app_key_base + "\\" + Name, "command", null);
-            var console_key = Registry.GetValue(app_key_base + "\\" + Name, "console", null);
+            var command_key = Registry.GetValue(get_full_name(), "command", null);
+            var console_key = Registry.GetValue(get_full_name(), "console", null);
+            var xming_key = Registry.GetValue(get_full_name(), "xming", null);
+            var name_key = Registry.GetValue(get_full_name(), "name", null);
             if (command_key == null)
             {
                 //insert key & set value
                 Registry.SetValue(get_full_name(), "command", this.DefaultCommand);
+                command_key = Registry.GetValue(app_key_base + "\\" + Name, "command", null);
+            } 
 
-            } else
-            {
-                this.Command = command_key.ToString();
-            }
+            this.Command = command_key.ToString();
 
             if (console_key == null)
             {
                 Registry.SetValue(get_full_name(), "console", this.DefaultConsole);
-            } else
+                console_key = Registry.GetValue(app_key_base + "\\" + Name, "console", null);
+            } 
+            
+            this.Console = console_key.ToString();
+
+            if (xming_key == null)
             {
-                this.Console = console_key.ToString();
+                Registry.SetValue(get_full_name(), "xming", this._usesXming.ToString());
             }
+
+            if (name_key == null)
+            {
+                Registry.SetValue(get_full_name(), "name", this.Name);
+            }
+            
         }
 
         public void pushToRegistry()
