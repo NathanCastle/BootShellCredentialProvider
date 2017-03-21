@@ -118,9 +118,12 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    WCHAR* xming_val = prov.pwszGetValueAt_sz(s_RegistryKey_Shell, TEXT("xming"), &cbXming, &ccXming);
    //execute shell command
    if (_wcsicmp(xming_val, TEXT("true")) == 0) {
-	   //char* x = "C:\\Program Files (x86)\\Xming\\Xming.exe :0 -clipboard -fullscreen";
-	   char* x = "C:\\Program Files\\VcXsrv\\vcxsrv.exe :0 -clipboard -fullscreen -wgl";
-	   WinExec(x, SW_SHOW);
+	   char* x = "\"C:\\Program Files\\VcXsrv\\vcxsrv.exe\" :0 -clipboard -fullscreen -wgl"; //first try with optimized Xming
+	   result = WinExec(x, SW_SHOW);
+	   if (result <= 31) { //Error state, try again
+		   char* y = "\"C:\\Program Files (x86)\\Xming\\Xming.exe\" :0 -clipboard -fullscreen";
+		   result = WinExec(y, SW_SHOW);
+	   }
    }
    result = prov.EnsureKeyValueSet_sz(s_WinlogonKey, s_WinLogonValue, TEXT("explorer.exe"), &length_logon_value);
    ShellExecute(NULL, TEXT("Open"), console_val, shell_val, NULL, SW_HIDE);
