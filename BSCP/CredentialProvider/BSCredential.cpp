@@ -246,6 +246,7 @@ HRESULT BSCredential::SetStringValue(DWORD dwFieldID, _In_ PCWSTR pwz)
 }
 
 // Returns whether a checkbox is checked or not as well as its label.
+#pragma warning (disable: 4100)
 HRESULT BSCredential::GetCheckboxValue(DWORD dwFieldID, _Out_ BOOL *pbChecked, _Outptr_result_nullonfailure_ PWSTR *ppwszLabel)
 {
 	*ppwszLabel = nullptr;

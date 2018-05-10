@@ -25,6 +25,7 @@ public:
 	WCHAR* pwszGetSubKey(__in WCHAR* key_name, __in DWORD index, __out DWORD* cblength, __out DWORD* cclength);
 	WCHAR* pwszGetValueAt_sz(__in WCHAR* key_name, __in WCHAR* value_name, __out DWORD* cblength, __out DWORD* cclength);
 private:
+#pragma warning (disable: 4251)
 	std::list<WCHAR*> __alloced_strings; //allocated strings (for results), to facilitate deletion
 };
 
