@@ -11,7 +11,8 @@ BSCP lets you boot Windows directly into a Linux desktop experience, using Windo
 
 Prerequisites:
 
-- VcXsrv must be installed. This is a free Xming alternative that happens to be more stable and featured. It is available on chocolatey, otherwise: https://sourceforge.net/projects/vcxsrv/ 
+- VcXsrv must be installed. This is a free Xming alternative that happens to be more stable and featured. It is available on chocolatey, otherwise: https://sourceforge.net/projects/vcxsrv/
+- The Microsoft Visual C++ Redistributable for Visual Studio 2017 must be be installed. Available [here](https://www.visualstudio.com/downloads/?q=redistributable)
 - Windows Subsystem for Linux, including the bash environment, is installed and working
 - You have some sense of which Linux DEs you'd like to explore and have installed them through WSL. See [here](https://github.com/NathanCastle/BootShellCredentialProvider/blob/master/BSCP/Configurator/wsl_setup.sh) for inspiration/a runnable script to do it for you. Note: doing everything in that file *should* work, but will take a long time regardless.
 
@@ -22,6 +23,7 @@ Installing & Configuring:
 - Configure the settings as desired. Note that the defaults should work with the environment created by the setup scritpt mentioned above. 
 - In the unlikely event that BSCP Configurator crashes upon attempting to save, you have a permissions issue. Try running again as an administrator. If that doesn't work, you probably need to give yourself Full Control permissions on `HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\WinLogon`.
 - Sign out and behold!
+  - If you don't see it, double check that the [Visual C++ redistributable](https://www.visualstudio.com/downloads/?q=redistributable) is installed.
 
 Usage Notes:
 
