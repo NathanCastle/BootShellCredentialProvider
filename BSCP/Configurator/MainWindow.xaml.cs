@@ -45,7 +45,7 @@ namespace Configurator
                 context.Add(new ConfigModel("KDE", "-c \"cd ~/ && DISPLAY=:0 startkde \"", "bash.exe"));
                 context.Add(new ConfigModel("XFCE", "-c \"cd ~/ && DISPLAY=:0 startxfce4\"", "bash.exe"));
                 context.Add(new ConfigModel("Mate", "-c \"cd ~/ && DISPLAY=:0 exec mate-session\"", "bash.exe"));
-                context.Add(new ConfigModel("Windows Explorer", "/C \"explorer.exe\"", "cmd.exe", false));
+                context.Add(new ConfigModel("Windows Explorer", "/C \"explorer.exe\"", "cmd.exe", false, ""));
             }
             
             foreach (var item in context)

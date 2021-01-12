@@ -39,6 +39,7 @@
                             <TextBox Text="{Binding Name}" Width="150" />
                             <TextBox Text="{Binding Console}" Width="75" />
                             <TextBox Text="{Binding Command}" Width="150" />
+                            <TextBox Text="{Binding XmingCommand}" Width="150" />
                             <Button Content="Reset to Default" Tag="{Binding Name}" Click="Reset_button_Click" />
                             <Button Content="Delete Forever" Tag="{Binding Name}" Click="Delete_button_Click" />
                         </StackPanel>
