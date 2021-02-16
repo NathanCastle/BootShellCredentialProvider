@@ -23,6 +23,7 @@ namespace Configurator
         private String _name;
         private String _command;
         private String _console;
+        private string _xmingCommand;
         private Boolean _usesXming;
         public String Name
         {
@@ -69,6 +70,18 @@ namespace Configurator
                 }
             }
         }
+        public string XmingCommand
+        {
+            get => _xmingCommand;
+            set
+            {
+                if (value != _xmingCommand)
+                {
+                    _xmingCommand = value;
+                    OnPropertyChanged(nameof(XmingCommand));
+                }
+            }
+        }
         public String DefaultCommand { get; set; }
         public String DefaultConsole { get; set; }
 
@@ -76,12 +89,13 @@ namespace Configurator
         {
         }
 
-        public ConfigModel(String name, String defaultCommand, String defaultConsole, Boolean uses_xming = true)
+        public ConfigModel(String name, String defaultCommand, String defaultConsole, Boolean uses_xming = true, String defaultXmingString = "C:\\Program Files\\VcXsrv\\vcxsrv.exe\" :0 -clipboard -fullscreen -wgl")
         {
             this.Name = name;
             this.DefaultCommand = defaultCommand;
             this.DefaultConsole = defaultConsole;
             this._usesXming = uses_xming;
+            this._xmingCommand = defaultXmingString;
         }
 
         /// <summary>
@@ -93,6 +107,15 @@ namespace Configurator
             var console_key = Registry.GetValue(get_full_name(), "console", null);
             var xming_key = Registry.GetValue(get_full_name(), "xming", null);
             var name_key = Registry.GetValue(get_full_name(), "name", null);
+            var xming_command_key = Registry.GetValue(get_full_name(), "xming_command", null);
+
+            if (xming_command_key == null)
+            {
+                Registry.SetValue(get_full_name(), "xming_command",  "C:\\Program Files\\VcXsrv\\vcxsrv.exe\" :0 -clipboard -fullscreen -wgl");
+                xming_command_key = Registry.GetValue(app_key_base + "\\" + Name, "xming_command", null);
+            }
+            this.XmingCommand = xming_command_key.ToString();
+
             if (command_key == null)
             {
                 //insert key & set value
@@ -128,6 +151,7 @@ namespace Configurator
             Registry.SetValue(get_full_name(), "name", this.Name);
             Registry.SetValue(get_full_name(), "console", this.Console);
             Registry.SetValue(get_full_name(), "xming", this._usesXming.ToString());
+            Registry.SetValue(get_full_name(), "xming_command", this._xmingCommand);
         }
 
         public void delete()

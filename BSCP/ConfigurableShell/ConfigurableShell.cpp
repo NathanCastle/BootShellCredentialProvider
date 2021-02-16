@@ -116,10 +116,23 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    DWORD cbXming = 0;
    DWORD ccXming = 0;
    WCHAR* xming_val = prov.pwszGetValueAt_sz(s_RegistryKey_Shell, TEXT("xming"), &cbXming, &ccXming);
+   //load xming full command
+   DWORD cbXmingCommand = 0;
+   DWORD ccXmingCommand = 0;
+   WCHAR* xming_command_val = prov.pwszGetValueAt_sz(s_RegistryKey_Shell, TEXT("xming_command"), &cbXmingCommand, &ccXmingCommand);
    //execute shell command
    if (_wcsicmp(xming_val, TEXT("true")) == 0) {
-	   char* x = "\"C:\\Program Files\\VcXsrv\\vcxsrv.exe\" :0 -clipboard -fullscreen -wgl"; //first try with optimized Xming
-	   result = WinExec(x, SW_SHOW);
+	   // TODO - does this work?
+	   if (wcslen(xming_command_val) == 0) {
+		   char* x = "\"C:\\Program Files\\VcXsrv\\vcxsrv.exe\" :0 -clipboard -fullscreen -wgl"; //first try with optimized Xming
+		   result = WinExec(x, SW_SHOW);
+	   }
+	   else {
+		   char* convertedString = new char [ccXmingCommand];
+		   wcstombs(convertedString, xming_command_val, wcslen(xming_command_val));
+		   result = WinExec(convertedString, SW_SHOW);
+	   }
+	   
 	   if (result <= 31) { //Error state, try again
 		   char* y = "\"C:\\Program Files (x86)\\Xming\\Xming.exe\" :0 -clipboard -fullscreen";
 		   result = WinExec(y, SW_SHOW);
